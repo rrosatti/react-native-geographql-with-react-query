@@ -20,8 +20,10 @@
     "eslint-plugin-jsx-a11y": "^6.5.1",
     "graphql": "^16.3.0",
     "graphql-tag": "^2.12.6",
+    "husky": "^7.0.4",
     "react": "17.0.2",
     "react-native": "0.68.1",
+    "tsc": "^2.0.4",
     "typescript-eslint": "^0.0.1-alpha.0"
   },
   "devDependencies": {
@@ -39,6 +41,12 @@
     "metro-react-native-babel-preset": "^0.67.0",
     "react-test-renderer": "17.0.2",
     "typescript": "^4.4.4"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn tsc && yarn lint",
+      "pre-push": "yarn lint && yarn test"
+    }
   },
   "resolutions": {
     "@types/react": "^17"

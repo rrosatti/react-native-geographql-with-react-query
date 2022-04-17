@@ -50,7 +50,7 @@ const createDefaultClient = (): Client => {
         errorPolicy: 'all',
       },
     },
-    link: ApolloLink.from([httpLink, errorLink]),
+    link: ApolloLink.from([errorLink, httpLink]),
   });
 };
 

@@ -14,6 +14,7 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-GeoGraphQL-GeoGraphQLTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-GeoGraphQL-GeoGraphQLTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		B5D2D182800C4BC498033C3E /* NunitoSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5BFA9B2DEDDF4FE09C5B938F /* NunitoSans-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,7 @@
 		3B4392A12AC88292D35C810B /* Pods-GeoGraphQL.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoGraphQL.debug.xcconfig"; path = "Target Support Files/Pods-GeoGraphQL/Pods-GeoGraphQL.debug.xcconfig"; sourceTree = "<group>"; };
 		5709B34CF0A7D63546082F79 /* Pods-GeoGraphQL.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoGraphQL.release.xcconfig"; path = "Target Support Files/Pods-GeoGraphQL/Pods-GeoGraphQL.release.xcconfig"; sourceTree = "<group>"; };
 		5B7EB9410499542E8C5724F5 /* Pods-GeoGraphQL-GeoGraphQLTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoGraphQL-GeoGraphQLTests.debug.xcconfig"; path = "Target Support Files/Pods-GeoGraphQL-GeoGraphQLTests/Pods-GeoGraphQL-GeoGraphQLTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5BFA9B2DEDDF4FE09C5B938F /* NunitoSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "NunitoSans-Bold.ttf"; path = "../src/assets/fonts/NunitoSans-Bold.ttf"; sourceTree = "<group>"; };
 		5DCACB8F33CDC322A6C60F78 /* libPods-GeoGraphQL.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-GeoGraphQL.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = GeoGraphQL/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-GeoGraphQL-GeoGraphQLTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GeoGraphQL-GeoGraphQLTests.release.xcconfig"; path = "Target Support Files/Pods-GeoGraphQL-GeoGraphQLTests/Pods-GeoGraphQL-GeoGraphQLTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -122,6 +124,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				9CA23743068D4474A2F8C166 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -135,6 +138,15 @@
 				00E356EE1AD99517003FC87E /* GeoGraphQLTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		9CA23743068D4474A2F8C166 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				5BFA9B2DEDDF4FE09C5B938F /* NunitoSans-Bold.ttf */,
+			);
+			name = Resources;
+			path = "";
 			sourceTree = "<group>";
 		};
 		BBD78D7AC51CEA395F1C20DB /* Pods */ = {
@@ -244,6 +256,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				B5D2D182800C4BC498033C3E /* NunitoSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -363,36 +363,21 @@ export type Timezone = {
 
 export type GetCountriesQueryVariables = Exact<{
   pageCountries?: InputMaybe<PaginationInput>;
-  pageCities?: InputMaybe<PaginationInput>;
-  pageStates?: InputMaybe<PaginationInput>;
 }>;
 
 
-export type GetCountriesQuery = { __typename?: 'Query', countries: { __typename?: 'CountryConnection', edges: Array<{ __typename?: 'CountryEdge', node: { __typename?: 'Country', id: number, name: string, currency: string, currency_symbol: string, native: string, region: string, subregion: string, translations: any, emoji: string, latitude: number, longitude: number, states: { __typename?: 'StateConnection', totalCount: number }, cities: { __typename?: 'CityConnection', totalCount: number } } }> } };
+export type GetCountriesQuery = { __typename?: 'Query', countries: { __typename?: 'CountryConnection', edges: Array<{ __typename?: 'CountryEdge', node: { __typename?: 'Country', id: number, name: string, capital: string, emoji: string } }> } };
 
 
 export const GetCountriesDocument = gql`
-    query GetCountries($pageCountries: PaginationInput, $pageCities: PaginationInput, $pageStates: PaginationInput) {
+    query GetCountries($pageCountries: PaginationInput) {
   countries(page: $pageCountries) {
     edges {
       node {
         id
         name
-        currency
-        currency_symbol
-        native
-        region
-        subregion
-        translations
+        capital
         emoji
-        latitude
-        longitude
-        states(page: $pageStates) {
-          totalCount
-        }
-        cities(page: $pageCities) {
-          totalCount
-        }
       }
     }
   }
@@ -412,8 +397,6 @@ export const GetCountriesDocument = gql`
  * const { data, loading, error } = useGetCountriesQuery({
  *   variables: {
  *      pageCountries: // value for 'pageCountries'
- *      pageCities: // value for 'pageCities'
- *      pageStates: // value for 'pageStates'
  *   },
  * });
  */
@@ -434,8 +417,6 @@ export namespace GetCountries {
   export type Countries = (NonNullable<GetCountriesQuery['countries']>);
   export type Edges = NonNullable<(NonNullable<(NonNullable<GetCountriesQuery['countries']>)['edges']>)[number]>;
   export type Node = (NonNullable<NonNullable<(NonNullable<(NonNullable<GetCountriesQuery['countries']>)['edges']>)[number]>['node']>);
-  export type States = (NonNullable<(NonNullable<NonNullable<(NonNullable<(NonNullable<GetCountriesQuery['countries']>)['edges']>)[number]>['node']>)['states']>);
-  export type Cities = (NonNullable<(NonNullable<NonNullable<(NonNullable<(NonNullable<GetCountriesQuery['countries']>)['edges']>)[number]>['node']>)['cities']>);
   export const Document = GetCountriesDocument;
   export const use = useGetCountriesQuery;
 }

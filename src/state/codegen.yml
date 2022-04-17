@@ -1,0 +1,21 @@
+overwrite: true
+generates:
+  src/state/remote/__generated__/default.ts:
+    documents: 'src/state/remote/**/*.{ts,tsx,graphql}'
+    schema:
+      - 'src/state/remote/schema.graphql'
+    plugins:
+      - 'typescript'
+      - 'typescript-operations'
+      - 'typescript-react-apollo'
+      - 'typescript-compatibility'
+      - add:
+          content: "(defaultOptions as any).client = new Proxy(require('../../create-client.ts'), { get: (target, prop) => target.defaultClient[prop] });\n"
+          placement: 'content'
+      - add:
+          content: '/* eslint-disable */'
+    config:
+      withHooks: true
+      withHOC: false
+      withComponent: false
+      strict: true

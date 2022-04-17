@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "graphql:gen:ts": "graphql-codegen --config ./src/state/codegen.yml"
+    "graphql:gen:ts": "graphql-codegen --config ./src/state/codegen.yml",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@apollo/client": "^3.5.10",
@@ -39,6 +40,8 @@
     "lottie-ios": "3.2.3",
     "lottie-react-native": "^5.0.1",
     "metro-config": "^0.70.1",
+    "patch-package": "^6.4.7",
+    "postinstall-postinstall": "^2.1.0",
     "react": "17.0.2",
     "react-native": "0.68.1",
     "react-native-fast-image": "^8.5.11",

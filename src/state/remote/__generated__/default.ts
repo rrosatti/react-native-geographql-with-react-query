@@ -368,6 +368,13 @@ export type GetCountriesQueryVariables = Exact<{
 
 export type GetCountriesQuery = { __typename?: 'Query', countries: { __typename?: 'CountryConnection', edges: Array<{ __typename?: 'CountryEdge', node: { __typename?: 'Country', id: number, name: string, capital: string, emoji: string } }> } };
 
+export type GetCountryQueryVariables = Exact<{
+  id?: InputMaybe<Scalars['Int']>;
+}>;
+
+
+export type GetCountryQuery = { __typename?: 'Query', country?: { __typename?: 'Country', id: number, name: string, capital: string, emoji: string, phone_code: string, currency: string, currency_symbol: string, tld: string, native: string, region: string, subregion: string, latitude: number, longitude: number, timezones: Array<{ __typename?: 'Timezone', zone_name: string, abbreviation: string }> } | null };
+
 
 export const GetCountriesDocument = gql`
     query GetCountries($pageCountries: PaginationInput) {
@@ -411,6 +418,57 @@ export function useGetCountriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptio
 export type GetCountriesQueryHookResult = ReturnType<typeof useGetCountriesQuery>;
 export type GetCountriesLazyQueryHookResult = ReturnType<typeof useGetCountriesLazyQuery>;
 export type GetCountriesQueryResult = Apollo.QueryResult<GetCountriesQuery, GetCountriesQueryVariables>;
+export const GetCountryDocument = gql`
+    query GetCountry($id: Int) {
+  country(id: $id) {
+    id
+    name
+    capital
+    emoji
+    phone_code
+    currency
+    currency_symbol
+    tld
+    native
+    region
+    subregion
+    timezones {
+      zone_name
+      abbreviation
+    }
+    latitude
+    longitude
+  }
+}
+    `;
+
+/**
+ * __useGetCountryQuery__
+ *
+ * To run a query within a React component, call `useGetCountryQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetCountryQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useGetCountryQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useGetCountryQuery(baseOptions?: Apollo.QueryHookOptions<GetCountryQuery, GetCountryQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<GetCountryQuery, GetCountryQueryVariables>(GetCountryDocument, options);
+      }
+export function useGetCountryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCountryQuery, GetCountryQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetCountryQuery, GetCountryQueryVariables>(GetCountryDocument, options);
+        }
+export type GetCountryQueryHookResult = ReturnType<typeof useGetCountryQuery>;
+export type GetCountryLazyQueryHookResult = ReturnType<typeof useGetCountryLazyQuery>;
+export type GetCountryQueryResult = Apollo.QueryResult<GetCountryQuery, GetCountryQueryVariables>;
 export namespace GetCountries {
   export type Variables = GetCountriesQueryVariables;
   export type Query = GetCountriesQuery;
@@ -419,6 +477,15 @@ export namespace GetCountries {
   export type Node = (NonNullable<NonNullable<(NonNullable<(NonNullable<GetCountriesQuery['countries']>)['edges']>)[number]>['node']>);
   export const Document = GetCountriesDocument;
   export const use = useGetCountriesQuery;
+}
+
+export namespace GetCountry {
+  export type Variables = GetCountryQueryVariables;
+  export type Query = GetCountryQuery;
+  export type Country = (NonNullable<GetCountryQuery['country']>);
+  export type Timezones = NonNullable<(NonNullable<(NonNullable<GetCountryQuery['country']>)['timezones']>)[number]>;
+  export const Document = GetCountryDocument;
+  export const use = useGetCountryQuery;
 }
 
 (defaultOptions as any).client = new Proxy(require('../../create-client.ts'), { get: (target, prop) => target.defaultClient[prop] });

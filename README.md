@@ -36,6 +36,11 @@ Make a build and start the app:
 yarn ios
 ```
 
+
+## Visual references
+
+https://user-images.githubusercontent.com/16086636/163732000-23fa5ba2-7386-4a87-8c4b-f0dfdd8a3a11.mov
+
 ## Next Steps
 
 This is a list of features or changes that would be great for next releases:

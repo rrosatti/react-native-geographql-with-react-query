@@ -8,6 +8,7 @@ module.exports = {
           components: './src/components',
           context: './src/context',
           hooks: './src/hooks',
+          lottie: './src/lottie',
           navigation: './src/navigation',
           routes: './src/routes',
           state: './src/state',

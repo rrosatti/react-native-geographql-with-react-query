@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableOpacity } from 'react-native';
 
 import type { GetCountries } from 'state/remote/__generated__/default';
 
@@ -7,9 +7,24 @@ import styles from './styles';
 
 type Country = GetCountries.Node;
 
-const CountryTile = ({ name, capital, emoji }: Country): JSX.Element => {
+export interface CountryTileProps extends Country {
+  onPress: (id: number) => void;
+}
+
+const CountryTile = ({
+  id,
+  name,
+  capital,
+  emoji,
+  onPress,
+}: CountryTileProps): JSX.Element => {
+  const handleOnPress = React.useCallback(
+    (): void => onPress(id),
+    [onPress, id],
+  );
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={handleOnPress}>
       <View style={styles.leftContentContainer}>
         <Text style={styles.name}>{name}</Text>
         <View style={styles.capitalContainer}>
@@ -19,7 +34,7 @@ const CountryTile = ({ name, capital, emoji }: Country): JSX.Element => {
       <View style={styles.emojiContainer}>
         <Text style={styles.emoji}>{emoji}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

@@ -1,9 +1,15 @@
 import React from 'react';
 import { View, Text, SafeAreaView } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import type { NavigationProp } from '@react-navigation/native';
 
 import useGetCountries, {
   Constants as GetCountriesConstants,
 } from 'state/remote/use-get-countries';
+
+import routes from 'routes';
+
+import type { StandaloneNavigationParams } from 'navigation/CountryNavigator/types';
 
 import LoadingOrError from 'components/LoadingOrError';
 import CountryList from 'components/CountryList';
@@ -18,9 +24,21 @@ const Countries = (): JSX.Element => {
     },
   });
 
+  const { navigate } =
+    useNavigation<NavigationProp<StandaloneNavigationParams>>();
+
+  const handleOnPress = React.useCallback(
+    (id: number): void => navigate(routes.CountryDetail, { id }),
+    [navigate],
+  );
+
   const mappedCountries = React.useMemo(
-    () => data?.countries.edges.map((country) => ({ ...country.node })) || [],
-    [data],
+    () =>
+      data?.countries.edges.map((country) => {
+        const onPress = () => handleOnPress(country.node.id);
+        return { ...country.node, onPress };
+      }) || [],
+    [data, handleOnPress],
   );
 
   return (

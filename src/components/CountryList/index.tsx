@@ -3,22 +3,19 @@ import { View, FlatList, SafeAreaView } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import CountryTile from 'components/CountryTile';
-
-import type { GetCountries } from 'state/remote/__generated__/default';
+import type { CountryTileProps } from 'components/CountryTile';
 
 import styles, { Constants as StyleConstants } from './styles';
 
-type Country = GetCountries.Node;
-
 interface CountryListProps {
-  countries: Country[];
+  countries: CountryTileProps[];
 }
 
 const CountryList = ({ countries }: CountryListProps): JSX.Element => {
   const tabBarHeight = useBottomTabBarHeight();
 
   const renderItem = React.useCallback(
-    ({ item }: { item: Country; index: number }): JSX.Element => (
+    ({ item }: { item: CountryTileProps; index: number }): JSX.Element => (
       <CountryTile {...item} />
     ),
     [],

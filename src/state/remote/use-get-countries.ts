@@ -19,6 +19,10 @@ export const query = gql`
           emoji
         }
       }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
     }
   }
 `;

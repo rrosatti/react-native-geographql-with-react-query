@@ -366,7 +366,7 @@ export type GetCountriesQueryVariables = Exact<{
 }>;
 
 
-export type GetCountriesQuery = { __typename?: 'Query', countries: { __typename?: 'CountryConnection', edges: Array<{ __typename?: 'CountryEdge', node: { __typename?: 'Country', id: number, name: string, capital: string, emoji: string } }> } };
+export type GetCountriesQuery = { __typename?: 'Query', countries: { __typename?: 'CountryConnection', edges: Array<{ __typename?: 'CountryEdge', node: { __typename?: 'Country', id: number, name: string, capital: string, emoji: string } }>, pageInfo: { __typename?: 'PageInfo', endCursor?: string | null, hasNextPage: boolean } } };
 
 export type GetCountryQueryVariables = Exact<{
   id?: InputMaybe<Scalars['Int']>;
@@ -386,6 +386,10 @@ export const GetCountriesDocument = gql`
         capital
         emoji
       }
+    }
+    pageInfo {
+      endCursor
+      hasNextPage
     }
   }
 }
@@ -475,6 +479,7 @@ export namespace GetCountries {
   export type Countries = (NonNullable<GetCountriesQuery['countries']>);
   export type Edges = NonNullable<(NonNullable<(NonNullable<GetCountriesQuery['countries']>)['edges']>)[number]>;
   export type Node = (NonNullable<NonNullable<(NonNullable<(NonNullable<GetCountriesQuery['countries']>)['edges']>)[number]>['node']>);
+  export type PageInfo = (NonNullable<(NonNullable<GetCountriesQuery['countries']>)['pageInfo']>);
   export const Document = GetCountriesDocument;
   export const use = useGetCountriesQuery;
 }

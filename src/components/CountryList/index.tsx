@@ -9,9 +9,24 @@ import styles, { Constants as StyleConstants } from './styles';
 
 interface CountryListProps {
   countries: CountryTileProps[];
+  onEndReached: () => void;
+  ListFooterComponent:
+    | React.ReactElement<
+        CountryTileProps,
+        string | React.JSXElementConstructor<CountryTileProps>
+      >
+    | React.ComponentType<CountryTileProps>
+    | null
+    | undefined;
+  onMomentumScrollBegin: () => void;
 }
 
-const CountryList = ({ countries }: CountryListProps): JSX.Element => {
+const CountryList = ({
+  countries,
+  onEndReached,
+  ListFooterComponent,
+  onMomentumScrollBegin,
+}: CountryListProps): JSX.Element => {
   const tabBarHeight = useBottomTabBarHeight();
 
   const renderItem = React.useCallback(
@@ -40,6 +55,10 @@ const CountryList = ({ countries }: CountryListProps): JSX.Element => {
           },
         ]}
         ItemSeparatorComponent={ItemSeparator}
+        onEndReachedThreshold={0.01}
+        onEndReached={onEndReached}
+        ListFooterComponent={ListFooterComponent}
+        onMomentumScrollBegin={onMomentumScrollBegin}
       />
     </SafeAreaView>
   );

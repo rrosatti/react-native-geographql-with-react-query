@@ -1,7 +1,94 @@
 diff --git a/node_modules/@types/react-native/globals.d.ts b/node_modules/@types/react-native/globals.d.ts
-index 8b41056..5f96e22 100755
+index 8b41056..4028e39 100755
 --- a/node_modules/@types/react-native/globals.d.ts
 +++ b/node_modules/@types/react-native/globals.d.ts
+@@ -296,48 +296,48 @@ declare type XMLHttpRequestResponseType = '' | 'arraybuffer' | 'blob' | 'documen
+  * The properties are mutable to support users that use a `URL` polyfill, but the implementation
+  * built into React Native (as of 0.63) does not implement all the properties.
+  */
+-declare class URL {
+-    static createObjectURL(blob: Blob): string;
+-    static revokeObjectURL(url: string): void;
+-
+-    constructor(url: string, base?: string);
+-
+-    href: string;
+-    readonly origin: string;
+-    protocol: string;
+-    username: string;
+-    password: string;
+-    host: string;
+-    hostname: string;
+-    port: string;
+-    pathname: string;
+-    search: string;
+-    readonly searchParams: URLSearchParams;
+-    hash: string;
+-
+-    toJSON(): string;
+-}
++// declare class URL {
++//     static createObjectURL(blob: Blob): string;
++//     static revokeObjectURL(url: string): void;
++
++//     constructor(url: string, base?: string);
++
++//     href: string;
++//     readonly origin: string;
++//     protocol: string;
++//     username: string;
++//     password: string;
++//     host: string;
++//     hostname: string;
++//     port: string;
++//     pathname: string;
++//     search: string;
++//     readonly searchParams: URLSearchParams;
++//     hash: string;
++
++//     toJSON(): string;
++// }
+ 
+ /**
+  * Based on definitions of lib.dom and lib.dom.iterable
+  */
+-declare class URLSearchParams {
+-    constructor(init?: string[][] | Record<string, string> | string | URLSearchParams);
+-
+-    append(name: string, value: string): void;
+-    delete(name: string): void;
+-    get(name: string): string | null;
+-    getAll(name: string): string[];
+-    has(name: string): boolean;
+-    set(name: string, value: string): void;
+-    sort(): void;
+-    forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
+-    [Symbol.iterator](): IterableIterator<[string, string]>;
+-
+-    entries(): IterableIterator<[string, string]>;
+-    keys(): IterableIterator<string>;
+-    values(): IterableIterator<string>;
+-}
++// declare class URLSearchParams {
++//     constructor(init?: string[][] | Record<string, string> | string | URLSearchParams);
++
++//     append(name: string, value: string): void;
++//     delete(name: string): void;
++//     get(name: string): string | null;
++//     getAll(name: string): string[];
++//     has(name: string): boolean;
++//     set(name: string, value: string): void;
++//     sort(): void;
++//     forEach(callbackfn: (value: string, key: string, parent: URLSearchParams) => void, thisArg?: any): void;
++//     [Symbol.iterator](): IterableIterator<[string, string]>;
++
++//     entries(): IterableIterator<[string, string]>;
++//     keys(): IterableIterator<string>;
++//     values(): IterableIterator<string>;
++// }
+ 
+ interface WebSocketMessageEvent extends Event {
+     data?: any;
 @@ -397,55 +397,55 @@ interface AbortEvent extends Event {
      type: 'abort';
  }

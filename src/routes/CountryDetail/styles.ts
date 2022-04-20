@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     paddingVertical: 6,
   },
   infoItemsContainer: {
-    flex: 1,
+    // flex: 1,
     paddingTop: 24,
   },
 });

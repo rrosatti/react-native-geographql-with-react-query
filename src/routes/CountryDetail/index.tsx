@@ -11,7 +11,7 @@ import type routes from 'routes';
 import useGetCountry from 'state/remote/use-get-country';
 
 import LoadingOrError from 'components/LoadingOrError';
-import InfoItem from 'components/InfoItem';
+import CountryInfo from 'components/CountryInfo';
 
 import styles from './styles';
 
@@ -30,55 +30,6 @@ const CountryDetail = (): JSX.Element => {
   const { goBack } = useNavigation();
 
   const country = React.useMemo(() => data?.country, [data]);
-
-  const CountryInfo = React.useMemo(
-    (): JSX.Element =>
-      country ? (
-        <>
-          <View style={styles.emojiContainer}>
-            <Text style={styles.emoji}>{country.emoji}</Text>
-          </View>
-          <View>
-            <View style={styles.infoItemContainer}>
-              <InfoItem label="Name" value={country.name} />
-            </View>
-            <View style={styles.infoItemContainer}>
-              <InfoItem label="Capital" value={country.capital} />
-            </View>
-            <View style={styles.infoItemContainer}>
-              <InfoItem label="Phone Code" value={country.phone_code} />
-            </View>
-            <View style={styles.infoItemContainer}>
-              <InfoItem
-                label="Currency Symbol"
-                value={country.currency_symbol}
-              />
-            </View>
-            <View style={styles.infoItemContainer}>
-              <InfoItem label="Region" value={country.region} />
-            </View>
-            <View style={styles.infoItemContainer}>
-              <InfoItem label="Subregion" value={country.subregion} />
-            </View>
-            <View style={styles.infoItemContainer}>
-              <InfoItem
-                label="Timezone"
-                value={country.timezones[0].abbreviation}
-              />
-            </View>
-            <View style={styles.infoItemContainer}>
-              <InfoItem label="Latitude" value={String(country.latitude)} />
-            </View>
-            <View style={styles.infoItemContainer}>
-              <InfoItem label="Longitude" value={String(country.longitude)} />
-            </View>
-          </View>
-        </>
-      ) : (
-        <View />
-      ),
-    [country],
-  );
 
   return (
     <LoadingOrError
@@ -102,7 +53,9 @@ const CountryDetail = (): JSX.Element => {
             </View>
             <View style={styles.icon} />
           </View>
-          <View style={styles.infoItemsContainer}>{CountryInfo}</View>
+          <View style={styles.infoItemsContainer}>
+            <CountryInfo country={country} />
+          </View>
         </View>
       </SafeAreaView>
     </LoadingOrError>

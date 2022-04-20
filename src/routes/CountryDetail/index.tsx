@@ -9,8 +9,13 @@ import type { StandaloneNavigationParams } from 'navigation/CountryNavigator/typ
 import type routes from 'routes';
 
 import useGetCountry from 'state/remote/use-get-country';
+import useFavoriteCountry from 'state/local/favorite-country/hooks/use-favorite-country';
+
+import useSetFavoriteCountryToAsyncStorage from 'hooks/use-set-favorite-country-to-async-storage';
+import useRemoveFavoriteCountryFromAsyncStorage from 'hooks/use-remove-favorite-country-from-async-storage';
 
 import LoadingOrError from 'components/LoadingOrError';
+import FavoriteUnfavoriteButton from 'components/FavoriteUnfavoriteButton';
 import CountryInfo from 'components/CountryInfo';
 
 import styles from './styles';
@@ -30,6 +35,19 @@ const CountryDetail = (): JSX.Element => {
   const { goBack } = useNavigation();
 
   const country = React.useMemo(() => data?.country, [data]);
+
+  const {
+    favoriteCountry: { id: favoriteCountryId },
+  } = useFavoriteCountry();
+
+  const { saveData: saveFavoriteCountry } = useSetFavoriteCountryToAsyncStorage(
+    {
+      id: country?.id,
+    },
+  );
+
+  const { removeData: removeFavoriteCountry } =
+    useRemoveFavoriteCountryFromAsyncStorage();
 
   return (
     <LoadingOrError
@@ -56,6 +74,14 @@ const CountryDetail = (): JSX.Element => {
           <View style={styles.infoItemsContainer}>
             <CountryInfo country={country} />
           </View>
+          <FavoriteUnfavoriteButton
+            onPress={
+              favoriteCountryId === country?.id
+                ? removeFavoriteCountry
+                : saveFavoriteCountry
+            }
+            type={favoriteCountryId === country?.id ? 'unfavorite' : 'favorite'}
+          />
         </View>
       </SafeAreaView>
     </LoadingOrError>

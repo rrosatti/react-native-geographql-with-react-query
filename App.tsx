@@ -3,6 +3,8 @@ import { LogBox } from 'react-native';
 
 import Navigation from 'navigation';
 
+import useGetFavoriteCountryFromAsyncStorage from 'hooks/use-get-favorite-country-from-async-storage';
+
 import GraphQLContext from 'context/graphql';
 
 // The 'ViewPropTypes' is not being used directly in this application,
@@ -11,6 +13,7 @@ import GraphQLContext from 'context/graphql';
 LogBox.ignoreLogs(['ViewPropTypes will be removed']);
 
 const App = (): JSX.Element => {
+  useGetFavoriteCountryFromAsyncStorage();
   return (
     <GraphQLContext.Provider>
       <Navigation />

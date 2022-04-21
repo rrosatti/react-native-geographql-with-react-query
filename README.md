@@ -39,18 +39,18 @@ yarn ios
 
 ## Visual references
 
-https://user-images.githubusercontent.com/16086636/163732000-23fa5ba2-7386-4a87-8c4b-f0dfdd8a3a11.mov
+https://user-images.githubusercontent.com/16086636/164343346-19c362d2-8ef7-4e98-97d5-9b295b7954c8.mov
 
 ## Next Steps
 
 This is a list of features or changes that would be great for next releases:
 
-1. **Pagination**: at the moment, we're getting only the first 10 countries. It would be **great** to allow pagination to fetch/load more data.
+1. ~~**Pagination**: at the moment, we're getting only the first 10 countries. It would be **great** to allow pagination to fetch/load more data.~~ (done in v1.1)
 
 2. **Animation**: well, no animation is being used in the app for now. That's sad. A designer would cry a lot if they see the application. So, that's one thing to be tacked next.
 
 3.  **Show states and cities info in the "Country Detail" page**: for now, only a few information is being displayed in the "Country Detail" page. The idea behind this milestone would be to display both 'countries' and 'cities' in a "Carousel" way (horizontal list)
 
-4. **Add new tab**: at this moment, the app has only one tab: Countries. It would be cool to have at least one more. The idea would be to have a "Favorites" tab that would show the user's favorite countries. It would require some changes in the code in order to allow the user to favorite a country (maybe saving this info in the persisted data?).
+4. ~~**Add new tab**: at this moment, the app has only one tab: Countries. It would be cool to have at least one more. The idea would be to have a "Favorites" tab that would show the user's favorite countries. It would require some changes in the code in order to allow the user to favorite a country (maybe saving this info in the persisted data?).~~ (done in v1.1)
 
 5. **.env infra**: add a simple infra to save some information, such as the server url, in a *.env* file and read it in the app.

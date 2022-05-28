@@ -9,7 +9,7 @@ export type Client = ApolloClient<NormalizedCacheObject>;
 
 const httpLink = new HttpLink({
   // ideally it would be in an .env file
-  uri: 'https://api.geographql.renzooo.com/graphql',
+  uri: 'https://api.geographql.rudio.dev/graphql',
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {

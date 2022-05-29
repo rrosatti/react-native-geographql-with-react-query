@@ -1,7 +1,10 @@
 import React from 'react';
-import { View, Text } from 'react-native';
 
-import styles from './styles';
+import {
+  StyledContainerView,
+  StyledLabelText,
+  StyledValueText,
+} from './styled-components';
 
 interface InfoItemProps {
   label: string;
@@ -10,10 +13,10 @@ interface InfoItemProps {
 
 const InfoItem = ({ label, value }: InfoItemProps): JSX.Element => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.label}>{`${label}: `}</Text>
-      <Text style={styles.value}>{value}</Text>
-    </View>
+    <StyledContainerView>
+      <StyledLabelText>{`${label}: `}</StyledLabelText>
+      <StyledValueText>{value}</StyledValueText>
+    </StyledContainerView>
   );
 };
 

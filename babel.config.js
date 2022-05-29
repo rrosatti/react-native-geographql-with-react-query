@@ -22,6 +22,7 @@ module.exports = {
     'dynamic-import-node',
     'graphql-tag',
     'import-graphql',
+    'babel-plugin-styled-components',
   ],
   presets: ['module:metro-react-native-babel-preset'],
 };

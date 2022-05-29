@@ -3,6 +3,7 @@ import { View, Text, SafeAreaView, ScrollView } from 'react-native';
 
 import useGetCountry from 'state/remote/use-get-country';
 import useFavoriteCountry from 'state/local/favorite-country/hooks/use-favorite-country';
+import { client } from 'state/graphql-config';
 
 import useRemoveFavoriteCountryFromAsyncStorage from 'hooks/use-remove-favorite-country-from-async-storage';
 
@@ -17,10 +18,13 @@ const FavoriteCountry = (): JSX.Element => {
     favoriteCountry: { id },
   } = useFavoriteCountry();
 
-  const { data, loading, error, refetch } = useGetCountry({
-    skip: !id,
-    variables: { id },
-  });
+  const { data, isLoading, error, refetch } = useGetCountry(
+    client,
+    {
+      id,
+    },
+    { enabled: !!id },
+  );
 
   const country = React.useMemo(() => data?.country, [data]);
 
@@ -36,11 +40,11 @@ const FavoriteCountry = (): JSX.Element => {
     );
   }, []);
 
-  return !id && !data && !loading ? (
+  return !id && !data && !isLoading ? (
     <EmptyInfo />
   ) : (
     <LoadingOrError
-      loading={loading}
+      loading={isLoading}
       error={error}
       data={data}
       refetch={refetch}

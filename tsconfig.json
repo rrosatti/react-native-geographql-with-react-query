@@ -16,7 +16,11 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
-      "*": ["src/*", "*"]
+      "*": ["src/*", "*"],
+      "styled-components/native": [
+        "node_modules/@types/styled-components-react-native"
+      ],
+      "react-native": ["node_modules/@types/react-native"]
     },
     "typeRoots": ["./node_modules/@types", "./@types"]
   },

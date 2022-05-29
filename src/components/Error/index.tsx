@@ -1,9 +1,14 @@
 import React from 'react';
-import { View, Text, Button } from 'react-native';
+import { Button } from 'react-native';
 
 import type { QueryObserverResult } from 'react-query';
 
-import styles from './styles';
+import {
+  StyledContainerView,
+  StyledErrorMessageView,
+  StyledErrorText,
+  StyledButtonView,
+} from './styled-components';
 
 interface Props<T> {
   refetch: () => Promise<QueryObserverResult<T>>;
@@ -13,14 +18,14 @@ const Error = <T,>({ refetch }: Props<T>): JSX.Element => {
   const handleRefetch = React.useCallback(() => refetch(), [refetch]);
 
   return (
-    <View style={styles.container}>
-      <View style={styles.errorMessage}>
-        <Text style={styles.errorText}>Sorry, there was an error!</Text>
-      </View>
-      <View style={styles.button}>
+    <StyledContainerView>
+      <StyledErrorMessageView>
+        <StyledErrorText>Sorry, there was an error!</StyledErrorText>
+      </StyledErrorMessageView>
+      <StyledButtonView>
         <Button title="Try again" onPress={handleRefetch} />
-      </View>
-    </View>
+      </StyledButtonView>
+    </StyledContainerView>
   );
 };
 

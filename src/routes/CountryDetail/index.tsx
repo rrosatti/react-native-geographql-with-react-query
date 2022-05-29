@@ -10,6 +10,7 @@ import type routes from 'routes';
 
 import useGetCountry from 'state/remote/use-get-country';
 import useFavoriteCountry from 'state/local/favorite-country/hooks/use-favorite-country';
+import { client } from 'state/graphql-config';
 
 import useSetFavoriteCountryToAsyncStorage from 'hooks/use-set-favorite-country-to-async-storage';
 import useRemoveFavoriteCountryFromAsyncStorage from 'hooks/use-remove-favorite-country-from-async-storage';
@@ -27,10 +28,13 @@ type CountryDetailRouteProp = RouteProp<
 
 const CountryDetail = (): JSX.Element => {
   const { id = undefined } = useRoute<CountryDetailRouteProp>()?.params;
-  const { data, loading, error, refetch } = useGetCountry({
-    skip: !id,
-    variables: { id },
-  });
+  const { data, isLoading, error, refetch } = useGetCountry(
+    client,
+    {
+      id,
+    },
+    { enabled: !!id },
+  );
 
   const { goBack } = useNavigation();
 
@@ -51,7 +55,7 @@ const CountryDetail = (): JSX.Element => {
 
   return (
     <LoadingOrError
-      loading={loading}
+      loading={isLoading}
       error={error}
       data={data}
       refetch={refetch}

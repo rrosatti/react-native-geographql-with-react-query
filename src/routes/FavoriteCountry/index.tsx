@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView, ScrollView } from 'react-native';
+import { Text, ScrollView } from 'react-native';
 
 import useGetCountry from 'state/remote/use-get-country';
 import useFavoriteCountry from 'state/local/favorite-country/hooks/use-favorite-country';
@@ -11,7 +11,17 @@ import LoadingOrError from 'components/LoadingOrError';
 import CountryInfo from 'components/CountryInfo';
 import FavoriteUnfavoriteButton from 'components/FavoriteUnfavoriteButton';
 
-import styles from './styles';
+import {
+  StyledEmptyInfoContainerView,
+  StyledContainerSafeAreaView,
+  StyledContentContainerView,
+  StyledHeaderContainerView,
+  StyledHeaderLeftAccessoryView,
+  StyledHeaderTextContainerView,
+  StyledHeaderText,
+  StyledHeaderRightAccessoryView,
+  StyledInfoItemsContainerView,
+} from './styled-components';
 
 const FavoriteCountry = (): JSX.Element => {
   const {
@@ -33,10 +43,10 @@ const FavoriteCountry = (): JSX.Element => {
 
   const EmptyInfo = React.useCallback((): JSX.Element => {
     return (
-      <View style={styles.emptyInfoContainer}>
+      <StyledEmptyInfoContainerView>
         {/* eslint-disable-next-line react/no-unescaped-entities */}
         <Text>You haven't favorite any country so far!!</Text>
-      </View>
+      </StyledEmptyInfoContainerView>
     );
   }, []);
 
@@ -50,28 +60,26 @@ const FavoriteCountry = (): JSX.Element => {
       refetch={refetch}
     >
       <ScrollView>
-        <SafeAreaView style={styles.container}>
+        <StyledContainerSafeAreaView>
           {country && (
-            <View style={styles.contentContainer}>
-              <View style={styles.headerContainer}>
-                <View style={styles.icon} />
-                <View style={styles.headerTextContainer}>
-                  <Text style={styles.headerText}>
-                    {country && country.name}
-                  </Text>
-                </View>
-                <View style={styles.icon} />
-              </View>
-              <View style={styles.infoItemsContainer}>
+            <StyledContentContainerView>
+              <StyledHeaderContainerView>
+                <StyledHeaderLeftAccessoryView />
+                <StyledHeaderTextContainerView>
+                  <StyledHeaderText>{country && country.name}</StyledHeaderText>
+                </StyledHeaderTextContainerView>
+                <StyledHeaderRightAccessoryView />
+              </StyledHeaderContainerView>
+              <StyledInfoItemsContainerView>
                 <CountryInfo country={country} />
-              </View>
+              </StyledInfoItemsContainerView>
               <FavoriteUnfavoriteButton
                 onPress={removeFavoriteCountry}
                 type="unfavorite"
               />
-            </View>
+            </StyledContentContainerView>
           )}
-        </SafeAreaView>
+        </StyledContainerSafeAreaView>
       </ScrollView>
     </LoadingOrError>
   );

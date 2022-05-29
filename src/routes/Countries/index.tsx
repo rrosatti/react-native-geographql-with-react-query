@@ -1,5 +1,4 @@
 import React from 'react';
-import { View, Text, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NavigationProp } from '@react-navigation/native';
 
@@ -17,7 +16,12 @@ import CountryList from 'components/CountryList';
 import type { CountryTileProps } from 'components/CountryTile';
 import LoadingOrTapToRefresh from 'components/LoadingOrTapToRefresh';
 
-import styles from './styles';
+import {
+  StyledContainerSafeAreaView,
+  StyledContentContainerView,
+  StyledHeaderTextContainerView,
+  StyledHeaderText,
+} from './styled-components';
 
 const Countries = (): JSX.Element => {
   const { isLoading, error, data, refetch, fetchNextPage, hasNextPage } =
@@ -77,11 +81,11 @@ const Countries = (): JSX.Element => {
   }, [hasMomentumScrollBegin, isLoading, fetchNextPage, hasNextPage, data]);
 
   return (
-    <SafeAreaView style={styles.container}>
-      <View style={styles.contentContainer}>
-        <View style={styles.headerTextContainer}>
-          <Text style={styles.headerText}>Countries</Text>
-        </View>
+    <StyledContainerSafeAreaView>
+      <StyledContentContainerView>
+        <StyledHeaderTextContainerView>
+          <StyledHeaderText>Countries</StyledHeaderText>
+        </StyledHeaderTextContainerView>
         <CountryList
           countries={mappedCountries}
           onMomentumScrollBegin={handleOnMomentumScrollBegin}
@@ -96,8 +100,8 @@ const Countries = (): JSX.Element => {
             />
           }
         />
-      </View>
-    </SafeAreaView>
+      </StyledContentContainerView>
+    </StyledContainerSafeAreaView>
   );
 };
 

@@ -1,11 +1,10 @@
 import React from 'react';
-import { View } from 'react-native';
 import LottieView from 'lottie-react-native';
 
-import styles from './styles';
+import { styles, StyledContainerView } from './styled-components';
 
 const Loader = (): JSX.Element => (
-  <View style={styles.container}>
+  <StyledContainerView>
     <LottieView
       // eslint-disable-next-line global-require
       source={require('lottie/spinner.json')}
@@ -13,7 +12,7 @@ const Loader = (): JSX.Element => (
       loop
       style={styles.lottieContainer}
     />
-  </View>
+  </StyledContainerView>
 );
 
 export default Loader;

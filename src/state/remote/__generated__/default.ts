@@ -1,12 +1,16 @@
 /* eslint-disable */
-import { gql } from '@apollo/client';
-import * as Apollo from '@apollo/client';
+import { GraphQLClient } from 'graphql-request';
+import { RequestInit } from 'graphql-request/dist/types.dom';
+import { useQuery, useInfiniteQuery, UseQueryOptions, UseInfiniteQueryOptions } from 'react-query';
 export type Maybe<T> = T | null;
 export type InputMaybe<T> = Maybe<T>;
 export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
-const defaultOptions = {} as const;
+
+function fetcher<TData, TVariables>(client: GraphQLClient, query: string, variables?: TVariables, headers?: RequestInit['headers']) {
+  return async (): Promise<TData> => client.request<TData, TVariables>(query, variables, headers);
+}
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -375,8 +379,24 @@ export type GetCountryQueryVariables = Exact<{
 
 export type GetCountryQuery = { __typename?: 'Query', country?: { __typename?: 'Country', id: number, name: string, capital: string, emoji: string, phone_code: string, currency: string, currency_symbol: string, tld: string, native: string, region: string, subregion: string, latitude: number, longitude: number, timezones: Array<{ __typename?: 'Timezone', zone_name: string, abbreviation: string }> } | null };
 
+export namespace GetCountries {
+  export type Variables = GetCountriesQueryVariables;
+  export type Query = GetCountriesQuery;
+  export type Countries = (NonNullable<GetCountriesQuery['countries']>);
+  export type Edges = NonNullable<(NonNullable<(NonNullable<GetCountriesQuery['countries']>)['edges']>)[number]>;
+  export type Node = (NonNullable<NonNullable<(NonNullable<(NonNullable<GetCountriesQuery['countries']>)['edges']>)[number]>['node']>);
+  export type PageInfo = (NonNullable<(NonNullable<GetCountriesQuery['countries']>)['pageInfo']>);
+}
 
-export const GetCountriesDocument = gql`
+export namespace GetCountry {
+  export type Variables = GetCountryQueryVariables;
+  export type Query = GetCountryQuery;
+  export type Country = (NonNullable<GetCountryQuery['country']>);
+  export type Timezones = NonNullable<(NonNullable<(NonNullable<GetCountryQuery['country']>)['timezones']>)[number]>;
+}
+
+
+export const GetCountriesDocument = `
     query GetCountries($pageCountries: PaginationInput) {
   countries(page: $pageCountries) {
     edges {
@@ -394,35 +414,37 @@ export const GetCountriesDocument = gql`
   }
 }
     `;
+export const useGetCountriesQuery = <
+      TData = GetCountriesQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: GetCountriesQueryVariables,
+      options?: UseQueryOptions<GetCountriesQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetCountriesQuery, TError, TData>(
+      variables === undefined ? ['GetCountries'] : ['GetCountries', variables],
+      fetcher<GetCountriesQuery, GetCountriesQueryVariables>(client, GetCountriesDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetCountriesQuery = <
+      TData = GetCountriesQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetCountriesQueryVariables,
+      client: GraphQLClient,
+      variables?: GetCountriesQueryVariables,
+      options?: UseInfiniteQueryOptions<GetCountriesQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetCountriesQuery, TError, TData>(
+      variables === undefined ? ['GetCountries.infinite'] : ['GetCountries.infinite', variables],
+      (metaData) => fetcher<GetCountriesQuery, GetCountriesQueryVariables>(client, GetCountriesDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );
 
-/**
- * __useGetCountriesQuery__
- *
- * To run a query within a React component, call `useGetCountriesQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCountriesQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCountriesQuery({
- *   variables: {
- *      pageCountries: // value for 'pageCountries'
- *   },
- * });
- */
-export function useGetCountriesQuery(baseOptions?: Apollo.QueryHookOptions<GetCountriesQuery, GetCountriesQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCountriesQuery, GetCountriesQueryVariables>(GetCountriesDocument, options);
-      }
-export function useGetCountriesLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCountriesQuery, GetCountriesQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCountriesQuery, GetCountriesQueryVariables>(GetCountriesDocument, options);
-        }
-export type GetCountriesQueryHookResult = ReturnType<typeof useGetCountriesQuery>;
-export type GetCountriesLazyQueryHookResult = ReturnType<typeof useGetCountriesLazyQuery>;
-export type GetCountriesQueryResult = Apollo.QueryResult<GetCountriesQuery, GetCountriesQueryVariables>;
-export const GetCountryDocument = gql`
+export const GetCountryDocument = `
     query GetCountry($id: Int) {
   country(id: $id) {
     id
@@ -445,52 +467,32 @@ export const GetCountryDocument = gql`
   }
 }
     `;
-
-/**
- * __useGetCountryQuery__
- *
- * To run a query within a React component, call `useGetCountryQuery` and pass it any options that fit your needs.
- * When your component renders, `useGetCountryQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useGetCountryQuery({
- *   variables: {
- *      id: // value for 'id'
- *   },
- * });
- */
-export function useGetCountryQuery(baseOptions?: Apollo.QueryHookOptions<GetCountryQuery, GetCountryQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<GetCountryQuery, GetCountryQueryVariables>(GetCountryDocument, options);
-      }
-export function useGetCountryLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetCountryQuery, GetCountryQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<GetCountryQuery, GetCountryQueryVariables>(GetCountryDocument, options);
-        }
-export type GetCountryQueryHookResult = ReturnType<typeof useGetCountryQuery>;
-export type GetCountryLazyQueryHookResult = ReturnType<typeof useGetCountryLazyQuery>;
-export type GetCountryQueryResult = Apollo.QueryResult<GetCountryQuery, GetCountryQueryVariables>;
-export namespace GetCountries {
-  export type Variables = GetCountriesQueryVariables;
-  export type Query = GetCountriesQuery;
-  export type Countries = (NonNullable<GetCountriesQuery['countries']>);
-  export type Edges = NonNullable<(NonNullable<(NonNullable<GetCountriesQuery['countries']>)['edges']>)[number]>;
-  export type Node = (NonNullable<NonNullable<(NonNullable<(NonNullable<GetCountriesQuery['countries']>)['edges']>)[number]>['node']>);
-  export type PageInfo = (NonNullable<(NonNullable<GetCountriesQuery['countries']>)['pageInfo']>);
-  export const Document = GetCountriesDocument;
-  export const use = useGetCountriesQuery;
-}
-
-export namespace GetCountry {
-  export type Variables = GetCountryQueryVariables;
-  export type Query = GetCountryQuery;
-  export type Country = (NonNullable<GetCountryQuery['country']>);
-  export type Timezones = NonNullable<(NonNullable<(NonNullable<GetCountryQuery['country']>)['timezones']>)[number]>;
-  export const Document = GetCountryDocument;
-  export const use = useGetCountryQuery;
-}
-
-(defaultOptions as any).client = new Proxy(require('../../create-client.ts'), { get: (target, prop) => target.defaultClient[prop] });
+export const useGetCountryQuery = <
+      TData = GetCountryQuery,
+      TError = unknown
+    >(
+      client: GraphQLClient,
+      variables?: GetCountryQueryVariables,
+      options?: UseQueryOptions<GetCountryQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useQuery<GetCountryQuery, TError, TData>(
+      variables === undefined ? ['GetCountry'] : ['GetCountry', variables],
+      fetcher<GetCountryQuery, GetCountryQueryVariables>(client, GetCountryDocument, variables, headers),
+      options
+    );
+export const useInfiniteGetCountryQuery = <
+      TData = GetCountryQuery,
+      TError = unknown
+    >(
+      pageParamKey: keyof GetCountryQueryVariables,
+      client: GraphQLClient,
+      variables?: GetCountryQueryVariables,
+      options?: UseInfiniteQueryOptions<GetCountryQuery, TError, TData>,
+      headers?: RequestInit['headers']
+    ) =>
+    useInfiniteQuery<GetCountryQuery, TError, TData>(
+      variables === undefined ? ['GetCountry.infinite'] : ['GetCountry.infinite', variables],
+      (metaData) => fetcher<GetCountryQuery, GetCountryQueryVariables>(client, GetCountryDocument, {...variables, ...(metaData.pageParam ?? {})}, headers)(),
+      options
+    );

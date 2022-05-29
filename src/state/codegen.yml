@@ -7,11 +7,8 @@ generates:
     plugins:
       - 'typescript'
       - 'typescript-operations'
-      - 'typescript-react-apollo'
       - 'typescript-compatibility'
-      - add:
-          content: "(defaultOptions as any).client = new Proxy(require('../../create-client.ts'), { get: (target, prop) => target.defaultClient[prop] });\n"
-          placement: 'content'
+      - 'typescript-react-query'
       - add:
           content: '/* eslint-disable */'
     config:
@@ -19,3 +16,5 @@ generates:
       withHOC: false
       withComponent: false
       strict: true
+      addInfiniteQuery: true
+      fetcher: graphql-request

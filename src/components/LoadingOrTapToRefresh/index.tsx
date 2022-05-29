@@ -1,14 +1,14 @@
 import React from 'react';
-import type { ApolloError, ApolloQueryResult } from '@apollo/client';
+import type { QueryObserverResult } from 'react-query';
 
 import Loader from 'components/Loader';
 import Error from 'components/Error';
 
 interface Props<T> {
   data: T;
-  error: ApolloError | undefined;
+  error: unknown | undefined;
   loading: boolean;
-  refetch: () => Promise<ApolloQueryResult<T>>;
+  refetch: () => Promise<QueryObserverResult<T>>;
 }
 
 const LoadingOrTapToRefresh = <T,>({

@@ -3,26 +3,35 @@ import { View, Text, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import type { NavigationProp } from '@react-navigation/native';
 
-import useGetCountries, {
-  Constants as GetCountriesConstants,
-} from 'state/remote/use-get-countries';
+import { Constants as GetCountriesConstants } from 'state/remote/use-get-countries';
+
+import { client } from 'state/graphql-config';
+
+import { useInfiniteGetCountriesQuery } from 'state/remote/__generated__/default';
 
 import routes from 'routes';
 
 import type { StandaloneNavigationParams } from 'navigation/CountryNavigator/types';
 
 import CountryList from 'components/CountryList';
+import type { CountryTileProps } from 'components/CountryTile';
 import LoadingOrTapToRefresh from 'components/LoadingOrTapToRefresh';
 
 import styles from './styles';
 
 const Countries = (): JSX.Element => {
-  const { loading, error, data, refetch, fetchMore } = useGetCountries({
-    notifyOnNetworkStatusChange: true,
-    variables: {
-      pageCountries: { first: GetCountriesConstants.countries.defaultFirst },
-    },
-  });
+  const { isLoading, error, data, refetch, fetchNextPage, hasNextPage } =
+    useInfiniteGetCountriesQuery(
+      'pageCountries',
+      client,
+      {
+        pageCountries: { first: GetCountriesConstants.countries.defaultFirst },
+      },
+      {
+        getNextPageParam: (lastPage) =>
+          lastPage.countries.pageInfo.endCursor ?? undefined,
+      },
+    );
 
   const { navigate } =
     useNavigation<NavigationProp<StandaloneNavigationParams>>();
@@ -32,14 +41,16 @@ const Countries = (): JSX.Element => {
     [navigate],
   );
 
-  const mappedCountries = React.useMemo(
-    () =>
-      data?.countries.edges.map((country) => {
+  const mappedCountries = React.useMemo(() => {
+    const countries: CountryTileProps[] = [];
+    data?.pages.forEach((page) =>
+      page.countries.edges.forEach((country) => {
         const onPress = () => handleOnPress(country.node.id);
-        return { ...country.node, onPress };
-      }) || [],
-    [data, handleOnPress],
-  );
+        countries.push({ ...country.node, onPress });
+      }),
+    );
+    return countries;
+  }, [data, handleOnPress]);
 
   const [hasMomentumScrollBegin, setHasMomentumScrollBegin] =
     React.useState(false);
@@ -51,22 +62,19 @@ const Countries = (): JSX.Element => {
   }, []);
 
   const handleOnEndReached = React.useCallback((): void => {
-    if (
-      hasMomentumScrollBegin &&
-      !loading &&
-      data?.countries.pageInfo.hasNextPage
-    ) {
-      fetchMore({
-        variables: {
+    if (hasMomentumScrollBegin && !isLoading && hasNextPage) {
+      fetchNextPage({
+        pageParam: {
           pageCountries: {
-            after: data.countries.pageInfo.endCursor,
+            after:
+              data?.pages[data.pages.length - 1].countries.pageInfo.endCursor,
             first: GetCountriesConstants.countries.defaultFirst,
           },
         },
       });
       setHasMomentumScrollBegin(false);
     }
-  }, [data, fetchMore, hasMomentumScrollBegin, loading]);
+  }, [hasMomentumScrollBegin, isLoading, fetchNextPage, hasNextPage, data]);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -81,7 +89,7 @@ const Countries = (): JSX.Element => {
           ListFooterComponent={
             // eslint-disable-next-line react/jsx-wrap-multilines
             <LoadingOrTapToRefresh
-              loading={loading}
+              loading={isLoading}
               error={error}
               data={data}
               refetch={refetch}

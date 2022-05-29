@@ -1,18 +1,18 @@
 import React from 'react';
-import type { ApolloError, ApolloQueryResult } from '@apollo/client';
+import type { QueryObserverResult } from 'react-query';
 
 import Loader from 'components/Loader';
 import Error from 'components/Error';
 
 interface Props<T> {
   data: T;
-  error: ApolloError | undefined;
+  error: unknown | undefined;
   loading: boolean;
   children: JSX.Element;
-  refetch: () => Promise<ApolloQueryResult<T>>;
+  refetch: () => Promise<QueryObserverResult<T>>;
 }
 
-const hasDataAndNoError = <T,>(data: T, error: ApolloError | undefined) => {
+const hasDataAndNoError = <T,>(data: T, error: unknown | undefined) => {
   return !!data && !error;
 };
 

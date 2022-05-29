@@ -1,12 +1,12 @@
 import React from 'react';
 import { View, Text, Button } from 'react-native';
 
-import type { ApolloQueryResult } from '@apollo/client';
+import type { QueryObserverResult } from 'react-query';
 
 import styles from './styles';
 
 interface Props<T> {
-  refetch: () => Promise<ApolloQueryResult<T>>;
+  refetch: () => Promise<QueryObserverResult<T>>;
 }
 
 const Error = <T,>({ refetch }: Props<T>): JSX.Element => {

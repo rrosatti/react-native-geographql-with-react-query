@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, SafeAreaView, TouchableOpacity } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import { useRoute, useNavigation } from '@react-navigation/core';
 import type { RouteProp } from '@react-navigation/core';
 import FastImage from 'react-native-fast-image';
@@ -19,7 +19,16 @@ import LoadingOrError from 'components/LoadingOrError';
 import FavoriteUnfavoriteButton from 'components/FavoriteUnfavoriteButton';
 import CountryInfo from 'components/CountryInfo';
 
-import styles from './styles';
+import {
+  styles,
+  StyledContainerSafeAreaView,
+  StyledContentContainerView,
+  StyledHeaderContainerView,
+  StyledHeaderTextContainerView,
+  StyledHeaderText,
+  StyledRightAccessoryHeaderView,
+  StyledInfoItemsContainerView,
+} from './styled-components';
 
 type CountryDetailRouteProp = RouteProp<
   StandaloneNavigationParams,
@@ -60,9 +69,9 @@ const CountryDetail = (): JSX.Element => {
       data={data}
       refetch={refetch}
     >
-      <SafeAreaView style={styles.container}>
-        <View style={styles.contentContainer}>
-          <View style={styles.headerContainer}>
+      <StyledContainerSafeAreaView>
+        <StyledContentContainerView>
+          <StyledHeaderContainerView>
             <TouchableOpacity onPress={goBack}>
               <FastImage
                 // eslint-disable-next-line global-require
@@ -70,14 +79,14 @@ const CountryDetail = (): JSX.Element => {
                 style={styles.icon}
               />
             </TouchableOpacity>
-            <View style={styles.headerTextContainer}>
-              <Text style={styles.headerText}>{country && country.name}</Text>
-            </View>
-            <View style={styles.icon} />
-          </View>
-          <View style={styles.infoItemsContainer}>
+            <StyledHeaderTextContainerView>
+              <StyledHeaderText>{country && country.name}</StyledHeaderText>
+            </StyledHeaderTextContainerView>
+            <StyledRightAccessoryHeaderView />
+          </StyledHeaderContainerView>
+          <StyledInfoItemsContainerView>
             <CountryInfo country={country} />
-          </View>
+          </StyledInfoItemsContainerView>
           <FavoriteUnfavoriteButton
             onPress={
               favoriteCountryId === country?.id
@@ -86,8 +95,8 @@ const CountryDetail = (): JSX.Element => {
             }
             type={favoriteCountryId === country?.id ? 'unfavorite' : 'favorite'}
           />
-        </View>
-      </SafeAreaView>
+        </StyledContentContainerView>
+      </StyledContainerSafeAreaView>
     </LoadingOrError>
   );
 };

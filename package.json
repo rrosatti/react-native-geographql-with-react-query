@@ -19,6 +19,7 @@
     "@graphql-codegen/typescript-operations": "^2.3.5",
     "@graphql-codegen/typescript-react-query": "^3.5.12",
     "@react-native-community/async-storage": "^1.12.1",
+    "@react-native-firebase/app": "^14.11.0",
     "@react-navigation/bottom-tabs": "^6.3.1",
     "@react-navigation/core": "^6.2.1",
     "@react-navigation/native": "^6.0.10",

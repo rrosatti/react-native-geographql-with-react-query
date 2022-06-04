@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>928133845546-jescad4lolja5781dhmi8esi8eoa02si.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.928133845546-jescad4lolja5781dhmi8esi8eoa02si</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBdmYTwzWGChHhDozq1B1AzO4aUEU4Z5wA</string>
+	<key>GCM_SENDER_ID</key>
+	<string>928133845546</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>org.reactjs.native.example.GeoGraphQL</string>
+	<key>PROJECT_ID</key>
+	<string>geographql</string>
+	<key>STORAGE_BUCKET</key>
+	<string>geographql.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:928133845546:ios:3b947755387fff3d762953</string>
+</dict>
+</plist>

@@ -4,6 +4,7 @@ import { LogBox } from 'react-native';
 import Navigation from 'navigation';
 
 import useGetFavoriteCountryFromAsyncStorage from 'hooks/use-get-favorite-country-from-async-storage';
+import useFirebase from 'hooks/use-firebase';
 
 import GraphQLContext from 'context/graphql';
 
@@ -14,6 +15,7 @@ LogBox.ignoreLogs(['ViewPropTypes will be removed']);
 
 const App = (): JSX.Element => {
   useGetFavoriteCountryFromAsyncStorage();
+  useFirebase();
   return (
     <GraphQLContext.Provider>
       <Navigation />

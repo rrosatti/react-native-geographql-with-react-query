@@ -8,6 +8,9 @@ import { client } from 'state/graphql-config';
 
 import { useInfiniteGetCountriesQuery } from 'state/remote/__generated__/default';
 
+import useFeatureFlags from 'state/local/feature-flags/hooks/use-feature-flags';
+import useFavoriteCountry from 'state/local/favorite-country/hooks/use-favorite-country';
+
 import routes from 'routes';
 
 import type { StandaloneNavigationParams } from 'navigation/CountryNavigator/types';
@@ -37,6 +40,11 @@ const Countries = (): JSX.Element => {
       },
     );
 
+  const {
+    featureFlags: { enableFavoriteCountryHighlight },
+  } = useFeatureFlags();
+  const { favoriteCountry } = useFavoriteCountry();
+
   const { navigate } =
     useNavigation<NavigationProp<StandaloneNavigationParams>>();
 
@@ -50,11 +58,17 @@ const Countries = (): JSX.Element => {
     data?.pages.forEach((page) =>
       page.countries.edges.forEach((country) => {
         const onPress = () => handleOnPress(country.node.id);
-        countries.push({ ...country.node, onPress });
+        countries.push({
+          ...country.node,
+          highlight:
+            !!enableFavoriteCountryHighlight &&
+            favoriteCountry.id === country.node.id,
+          onPress,
+        });
       }),
     );
     return countries;
-  }, [data, handleOnPress]);
+  }, [data, handleOnPress, enableFavoriteCountryHighlight, favoriteCountry]);
 
   const [hasMomentumScrollBegin, setHasMomentumScrollBegin] =
     React.useState(false);

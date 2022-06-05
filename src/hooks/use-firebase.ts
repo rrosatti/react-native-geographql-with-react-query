@@ -5,6 +5,8 @@ import { updateFeatureFlags } from 'state/local/feature-flags';
 
 const useFirebase = (): void => {
   const fetch = React.useCallback(async (): Promise<void> => {
+    if (process.env.JEST_WORKER_ID) return;
+
     try {
       await remoteConfig().setConfigSettings({
         minimumFetchIntervalMillis: 3000,

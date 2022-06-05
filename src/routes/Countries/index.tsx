@@ -13,7 +13,7 @@ import routes from 'routes';
 import type { StandaloneNavigationParams } from 'navigation/CountryNavigator/types';
 
 import CountryList from 'components/CountryList';
-import type { CountryTileProps } from 'components/CountryTile';
+import type { CountryTileProps } from 'components/CountryTile/types';
 import LoadingOrTapToRefresh from 'components/LoadingOrTapToRefresh';
 
 import {

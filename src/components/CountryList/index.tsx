@@ -3,7 +3,7 @@ import { View, FlatList, SafeAreaView } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 
 import CountryTile from 'components/CountryTile';
-import type { CountryTileProps } from 'components/CountryTile';
+import type { CountryTileProps } from 'components/CountryTile/types';
 
 import styles, { Constants as StyleConstants } from './styles';
 

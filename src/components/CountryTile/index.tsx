@@ -1,6 +1,6 @@
 import React from 'react';
 
-import type { GetCountries } from 'state/remote/__generated__/default';
+import type { CountryTileProps } from './types';
 
 import {
   StyledTouchableOpacity,
@@ -12,18 +12,13 @@ import {
   StyledEmojiText,
 } from './styled-components';
 
-type Country = GetCountries.Node;
-
-export interface CountryTileProps extends Country {
-  onPress: (id: number) => void;
-}
-
 const CountryTile = ({
   id,
   name,
   capital,
   emoji,
   onPress,
+  highlight = false,
 }: CountryTileProps): JSX.Element => {
   const handleOnPress = React.useCallback(
     (): void => onPress(id),
@@ -31,11 +26,11 @@ const CountryTile = ({
   );
 
   return (
-    <StyledTouchableOpacity onPress={handleOnPress}>
+    <StyledTouchableOpacity onPress={handleOnPress} highlight={highlight}>
       <StyledLeftContentContainerView>
         <StyledNameText>{name}</StyledNameText>
         <StyledCapitalContainerView>
-          <StyledCapitalText>{capital}</StyledCapitalText>
+          <StyledCapitalText highlight={highlight}>{capital}</StyledCapitalText>
         </StyledCapitalContainerView>
       </StyledLeftContentContainerView>
       <StyledEmojiContainerView>
